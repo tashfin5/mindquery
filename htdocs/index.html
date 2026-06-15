@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mind Query</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1 class="site-title">
+    <span class="mind">Mind</span><span class="query">Query</span>
+</h1>
+    <div class="header-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme"></button>
+      <a href="../admin/login.php" class="admin-link">Admin Page</a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <section id="quiz-area" class="card quiz-card">
+
+      <!-- START SCREEN (now asks name) -->
+      <div id="start-screen" class="">
+        <p class="small">Enter your name to start the quiz.</p>
+        <div style="max-width:520px;">
+          <input id="starter-username" type="text" placeholder="Your name" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); margin-bottom:12px;" />
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button id="start-btn" class="btn btn-primary" type="button" disabled>Start Quiz</button>
+            <div id="start-error" style="color:#b91c1c; display:none; font-weight:600;">Please enter your name</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION -->
+      <div id="question-screen" class="hidden">
+        <div class="quiz-header">
+          <div class="quiz-progress small">Question <span id="qIndex">1</span>/<span id="qTotal">0</span></div>
+          <div class="timer-wrap">
+            <div id="timer-label" class="small">Time</div>
+            <div class="timer-bar"><div id="timer-fill"></div></div>
+            <div id="timer-seconds" class="small">0s</div>
+          </div>
+        </div>
+
+        <div id="question-text" class="question">Question text</div>
+
+        <ul id="choices" class="choices"></ul>
+
+        <div class="controls">
+          <div class="progress-bar-outer" aria-hidden="true">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <button id="next-btn" class="btn" type="button" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="result-screen" class="hidden">
+        <div class="result">
+          <div class="score" style="font-size:20px;margin-bottom:6px;">Your Score: <span id="score">0</span></div>
+          <p id="result-msg"></p>
+          <div id="autosave-msg" class="small" style="color:var(--muted); margin-top:8px;">Saving result...</div>
+
+          <div class="btn-row" style="margin-top:18px;">
+            <button id="retry-btn" class="btn-retry">Retry</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="past-results" class="card">
+      <h2 class="card-title">Past Results</h2>
+      <div id="results-list">Loading...</div>
+        <div id="results-footer" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+    <div id="results-summary" class="small"></div>
+    <div id="results-pagination" class="pagination"></div>
+  </div>
+    </section>
+  </main>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

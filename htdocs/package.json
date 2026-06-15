@@ -1,0 +1,9 @@
+{
+  "name": "mindquery",
+  "version": "1.0.0",
+  "description": "MindQuery Vercel Node.js Backend",
+  "dependencies": {
+    "@vercel/postgres": "^0.8.0",
+    "cookie": "^0.6.0"
+  }
+}
