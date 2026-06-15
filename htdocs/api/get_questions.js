@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { neon } from '@neondatabase/serverless';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { rows } = await sql`SELECT id, question, choices, correct_index FROM questions ORDER BY id ASC`;
+    const sql = neon(process.env.DATABASE_URL);
+    const rows = await sql`SELECT id, question, choices, correct_index FROM questions ORDER BY id ASC`;
     
     const questions = rows.map(r => {
       let choices = [];
@@ -27,6 +28,6 @@ export default async function handler(req, res) {
     res.status(200).json({ success: true, questions });
   } catch (error) {
     console.error('get_questions error:', error);
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(500).json({ success: false, error: 'Internal server error', details: error.message });
   }
 }

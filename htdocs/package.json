@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "MindQuery Vercel Node.js Backend",
   "dependencies": {
-    "@vercel/postgres": "^0.8.0",
+    "@neondatabase/serverless": "^0.9.3",
     "cookie": "^0.6.0"
   }
 }

@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { neon } from '@neondatabase/serverless';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -10,15 +10,15 @@ export default async function handler(req, res) {
   const offset = (page - 1) * per_page;
 
   try {
+    const sql = neon(process.env.DATABASE_URL);
+    
     // Count total rows
-    const { rows: countRows } = await sql`SELECT COUNT(*) as c FROM results`;
+    const countRows = await sql`SELECT COUNT(*) as c FROM results`;
     const total = parseInt(countRows[0].c, 10);
     const pages = Math.max(1, Math.ceil(total / per_page));
 
     // Fetch paginated rows
-    // Using string formatting for ORDER BY / LIMIT since Vercel Postgres template literals
-    // don't support dynamic numbers/identifiers perfectly in all cases, but LIMIT/OFFSET is supported
-    const { rows } = await sql`
+    const rows = await sql`
       SELECT id, username, score, total, time_taken, 
              TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI') as created_at 
       FROM results 
@@ -36,6 +36,6 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('get_results error:', error);
-    res.status(500).json({ success: false, error: 'Database error' });
+    res.status(500).json({ success: false, error: 'Database error', details: error.message });
   }
 }
